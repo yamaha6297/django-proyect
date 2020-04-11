@@ -20,13 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'c^$380q_a%zlonil#-lr#i*q)y30s7_w*b0=y0mq832aoc**5nmyproyect'
+SECRET_KEY = os.environ.get('SECRET_KEY') if os.environ.get('SECRET_KEY') else 'c^$380q_a%zlonil#-lr#i*q)y30s7_w*b0=y0mq832aoc**5nmyproyect'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG') if os.environ.get('DEBUG') else True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -73,16 +72,26 @@ WSGI_APPLICATION = 'myproyect.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': 'database',
-        'NAME': 'covid',
-        'USER': 'jairo',
-        'PASSWORD': 'mybestpwdCovid19',
-        'PORT': 5432
+if os.environ.get('PROD'):
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            #'HOST': 'database',
+            #'NAME': 'covid',
+            #'USER': 'jairo',
+            #'PASSWORD': 'mybestpwdCovid19',
+            #'PORT': 5432
+            'NAME': os.environ.get('DB_URL')
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

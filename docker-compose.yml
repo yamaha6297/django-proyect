@@ -13,19 +13,17 @@ services:
     volumes:
       - .:/app
     environment:
-      DB_PASSWORD: mybestpwdCovid19
-      DB_USER: jairo
-      DB_NAME: covid
-      DB_HOST: database
-      DJANGO_SETTINGS_MODULE: settings.production
+      DB_URL: 'postgresql://jairo:mybestpwd@database:5432/production'
+      DEBUG: 'False'
+      SECRET_KEY: 'IXCJ123XC@S!EAAVFYW549GER4GXC?!DAXZ@FSQR'
 
   database:
     image: postgres:11-alpine
     container_name: database
     environment:
-      POSTGRES_PASSWORD: mybestpwdCovid19
+      POSTGRES_PASSWORD: mybestpwd
       POSTGRES_USER: jairo
-      POSTGRES_DB: covid
+      POSTGRES_DB: production
     ports:
       - 5432:5432
     volumes:
