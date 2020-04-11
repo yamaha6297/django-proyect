@@ -2,3 +2,4 @@
 requeriments.txt
 .env
 *.sqlite3
+__pycache__/
