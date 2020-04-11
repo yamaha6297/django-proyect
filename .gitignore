@@ -1,2 +1,4 @@
 .vscode/
 requeriments.txt
+.env
+*.sqlite3

@@ -4,13 +4,20 @@ services:
 
   webapp:
     build: .
-    command: python /app/covid19/manage.py runserver 0.0.0.0:8000
+    container_name: webapp
+    command: python /app/myproyect/manage.py runserver 0.0.0.0:8000
     ports:
       - 8000:8000
     depends_on:
       - database
     volumes:
       - .:/app
+    environment:
+      DB_PASSWORD: mybestpwdCovid19
+      DB_USER: jairo
+      DB_NAME: covid
+      DB_HOST: database
+      DJANGO_SETTINGS_MODULE: settings.production
 
   database:
     image: postgres:11-alpine
@@ -21,3 +28,5 @@ services:
       POSTGRES_DB: covid
     ports:
       - 5432:5432
+    volumes:
+      - /opt/pgdata:/var/lib/postgresql/data
