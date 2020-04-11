@@ -8,6 +8,18 @@ Teniendo pipenv instalado, ejecutar su entorno virtual:
 pipenv shell
 ```
 
+Si descarga el repositorio por primera vez, instale las dependencias con:
+
+```
+pipenv install --system
+```
+
+Para instalar paquetes adicionales en la etapa de desarrollo:
+
+```
+pipenv install name_package
+```
+
 Para levantar la base de datos:
 
 ```
